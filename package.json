@@ -1,0 +1,15 @@
+{
+  "name": "popdraft",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "emmaa-07",
+  "type": "commonjs",
+  "main": "pop.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^42.2.0"
+  }
+}
