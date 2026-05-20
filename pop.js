@@ -1,44 +1,9 @@
-const path = require('path');
-const { app, BrowserWindow, ipcMain } = require('electron');    
-const fs = require('fs');
-
-let win;
-
-function createWindow() {
-    let win = new BrowserWindow({
-        width: 800,
-        height: 600,
-        webPreferences: {
-            nodeIntegration: false,
-            contextIsolation: true,
-            preload:  path.join(__dirname, 'preload.js')
-        }
-    });
-
-    win.removeMenu();
-    win.loadFile('index.html');
-
-    ipcMain.on('load-page', (event, page) => {
-        win.loadFile(page);
-    });
-}
-
-app.whenReady().then(() => {
-    createWindow();
-    app.on('activate', () => {
-        if (BrowserWindow.getAllWindows().length === 0) {
-            createWindow();
-        }
-    });
-});
-
 window.onload = function() {
     let btn = document.getElementById('btn');
     let startContainer = document.getElementById('startContainer');
     let gameContainer = document.getElementById('gameContainer');
     let scoreboard = document.getElementById('scoreboard');
     let score = document.getElementById('score');
-
     let balloonInterval = ['normal', 'normal', 'star', 'normal', 'normal'];
     let currentScore = 0;
     score.innerText = currentScore;
@@ -64,7 +29,6 @@ window.onload = function() {
         let duration = Math.random() * 8 + 5;
         balloon.style.animationDuration = duration + 's';
 
-
         balloon.addEventListener('click', function() {
             new Audio('Media/soundeffect.mp3').play();
             currentScore++;
@@ -76,10 +40,9 @@ window.onload = function() {
                 balloon.remove();
             }, 200);
             balloon.style.pointerEvents = 'none';
-            //*
+            //
         });
-        
-        
+             
         balloon.addEventListener('animationend', function() {
             gameContainer.removeChild(balloon);
         });
@@ -88,10 +51,6 @@ window.onload = function() {
 
     function startGame() { 
         running = true;
-        setInterval(createBalloon, 1000);
-        
+        setInterval(createBalloon, 1000);   
     }
-
-
-
 };
